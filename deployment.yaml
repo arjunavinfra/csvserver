@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    configmap.reloader.stakater.com/reload: "csvinput"
+  name:  csvserver
+spec:
+  selector:
+    matchLabels:
+      app: csvserver
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  csvserver
+    spec:
+      containers:
+      - name:  csvserver
+        image:  infracloudio/csvserver:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        livenessProbe:
+          tcpSocket:
+            port: 9300
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9300
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        env:
+        - name: CSVSERVER_BORDER
+          value: orange
+        ports:
+        - containerPort:  80
+          name:  csvserver
+        volumeMounts:
+        - name: inputcsv
+          mountPath: /csvserver/inputdata
+          subPath: input.csv
+      volumes:
+        - name: inputcsv
+          configMap:
+            # Provide the name of the ConfigMap containing the files you want
+            # to add to the container
+            name: csvinput
+      restartPolicy: Always
