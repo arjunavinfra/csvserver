@@ -2,7 +2,7 @@
 
 Pre Configuration:
 1. Install kind kubernetes in local machine https://kind.sigs.k8s.io/docs/user/quick-start/
-2. Install MetalLB for exposing the traffic https://kind.sigs.k8s.io/docs/user/loadbalancer/
+2. Install MetalLB for exposing the traffic https://github.com/arjunavinfra/kubernetes/tree/master/networking/metalLB
 
 Steps:
 
