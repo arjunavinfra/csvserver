@@ -9,7 +9,7 @@ commonLabels:
   app: csvserver
 
 configMapGenerator:
-- name: csvinput
+- name: csvserver-input
   files:
   - input.csv
   options:

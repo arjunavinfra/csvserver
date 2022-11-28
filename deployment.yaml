@@ -49,6 +49,8 @@ spec:
         env:
         - name: CSVSERVER_BORDER
           value: orange
+        - name: CSVSERVER_BORDER
+          value: blue
         ports:
         - containerPort:  80
           name:  csvserver
@@ -61,5 +63,5 @@ spec:
           configMap:
             # Provide the name of the ConfigMap containing the files you want
             # to add to the container
-            name: csvinput
+            name: csvserver-input
       restartPolicy: Always
