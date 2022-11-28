@@ -48,7 +48,7 @@ spec:
           periodSeconds: 10
         env:
         - name: CSVSERVER_BORDER
-          value: blue
+          value: orange
         ports:
         - containerPort:  80
           name:  csvserver
