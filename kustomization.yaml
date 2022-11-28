@@ -3,7 +3,7 @@ kind: Kustomization
 metadata:
   name: csvserver
 
-namespace: webserver
+namespace: csvserver
 
 commonLabels:
   app: csvserver
